@@ -35,17 +35,26 @@ public class MainActivity extends AppCompatActivity {
         firstSwitch = findViewById(R.id.firstPreferenceSw);
         secondSwitch = findViewById(R.id.secondPreferenceSw);
 
-        // set 2 switches default
+        // set 2 switches default.
         firstSwitch.setEnabled(false);
         secondSwitch.setEnabled(false);
     }
 
+    /**
+     * This method make dialog to change userID when clicking in UI.
+     * @param view
+     */
     public void changeUserID(View view) {
+        // get layout for make dialog.
         final View dialog = getLayoutInflater().inflate(R.layout.change_user_id_dialog, null);
 
+        // just make default value to editText.
         final EditText newUserID = dialog.findViewById(R.id.editText);
         newUserID.setText(userID.getText());
 
+
+        // build dialog with layout by using setView().
+        // setPositiveButton() is method for set button on dialog.
         new AlertDialog.Builder(MainActivity.this).setView(dialog)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -58,11 +67,18 @@ public class MainActivity extends AppCompatActivity {
         }).create().show();
     }
 
+    /**
+     * This method make dialog with radiobutton when clicking in UI.
+     * @param view
+     */
     public void choosePreference(View view) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
+        // make CharSequence for making radiobutton.
         final CharSequence[] temperatures = {"Hot", "Warm", "Cold"};
 
+        // setSingleChoiceItems() is method making radiobutton. ** second parameter is default checked button index.
+        // setCancelable() is method setting dialog cancelable by click out of dialog.
         builder.setSingleChoiceItems(temperatures, preferenceCheckedIndex, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -80,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
                 preferenceCheckedIndex = which;
 
+                // dismiss() is method setting dialog to close.
                 dialog.dismiss();
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -92,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * this method change switch by click checkbox in UI.
+     * @param view
+     */
     public void changeSwitchStatus(View view) {
         if (preferenceStatusCb.isChecked()) {
             firstSwitch.setEnabled(true);
